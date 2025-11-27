@@ -2,7 +2,7 @@ name: Deploy Jekyll site to Pages
 
 on:
   push:
-    branches: ["main"] # 혹은 master (본인 브랜치명 확인 필수!)
+    branches: ["master"] # 혹은 master (본인 브랜치명 확인 필수!)
 
 permissions:
   contents: read

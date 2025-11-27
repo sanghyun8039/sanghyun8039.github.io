@@ -57,7 +57,7 @@ $content
   await runGit(['commit', '-m', 'Add post: $title']);
   print('🚀 GitHub으로 푸시 중...');
   await runGit(['push']);
-  print('🎉 배포 완료! (https://rudy-dev_log.github.io)');
+  print('🎉 배포 완료! (https://sanghyun8039.github.io)');
 }
 
 Future<String> getClipboardContent() async {
