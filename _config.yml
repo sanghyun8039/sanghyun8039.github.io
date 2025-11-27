@@ -1,0 +1,7 @@
+title: "나의 개발 블로그"
+description: "Gemini와 함께하는 Flutter 개발 일지"
+theme: jekyll-theme-minima # 가장 기본 테마 (변경 가능)
+url: "https://sanghyun8039.github.io"
+baseurl: "/rudy-dev_log.github.io" # 리포지토리 이름을 적어줘야 함
+plugins:
+  - jekyll-feed
