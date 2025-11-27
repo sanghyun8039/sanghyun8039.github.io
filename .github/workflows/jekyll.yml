@@ -2,7 +2,7 @@ name: Deploy Jekyll site to Pages
 
 on:
   push:
-    branches: ["master"] # 본인 브랜치명 확인 (main 또는 master)
+    branches: ["master"] # 브랜치 이름 확인! (main 또는 master)
 
 permissions:
   contents: read
@@ -20,24 +20,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 👇 [추가된 부분] Ruby를 세팅하고 Gemfile의 라이브러리를 설치합니다.
+      # 1. 루비 및 라이브러리 설치
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # Jekyll 호환성이 좋은 버전
-          bundler-cache: true # Gemfile을 보고 자동으로 bundle install 실행 + 캐싱
+          ruby-version: '3.1'
+          bundler-cache: true # Gemfile.lock이 있으면 캐싱, 없으면 bundle install 실행
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      # 2. (혹시 모르니) 의존성 명시적 설치
+      - name: Install dependencies
+        run: bundle install
 
+      # 3. [핵심 변경] 도커 액션 대신 직접 빌드 명령 실행
+      # Flutter로 치면 'flutter build web'을 직접 치는 것과 같습니다.
       - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-          
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      # 4. 빌드 결과물 업로드 (경로 명시)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
 
   deploy:
     environment:
